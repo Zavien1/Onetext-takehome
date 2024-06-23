@@ -15,7 +15,7 @@ export const ActionSelect = () => {
       <SelectContent>
         <SelectItem value="sendOrder">Send Order</SelectItem>
         <SelectItem value="applyDiscount">Apply Discount</SelectItem>
-        <SelectItem value="saveOrder">Save Order</SelectItem>
+        <SelectItem value="buyItem">Buy Item</SelectItem>
       </SelectContent>
     </Select>
   );

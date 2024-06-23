@@ -14,7 +14,7 @@ export const ResponseNode = ({ data, isSelected }: any) => {
       <Handle type="target" position={Position.Top} />
       <div
         className={cn(
-          "rounded-lg bg-green-500 text-white p-4",
+          "rounded-lg bg-green-500 text-white p-4 min-w-[200px] items-center justify-center flex",
           isSelected ? "border-4 border-black" : "border-4 border-green-500"
         )}
       >

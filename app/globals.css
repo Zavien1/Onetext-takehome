@@ -40,6 +40,14 @@
   border-color: #ff0072;
 }
 
+.dndflow .dndnode.responseNode {
+  border-color: #21c55d;
+}
+
+.dndflow .dndnode.actionNode {
+  border-color: #a854f7;
+}
+
 .dndflow .reactflow-wrapper {
   flex-grow: 1;
   width: 100%;

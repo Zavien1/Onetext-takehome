@@ -44,42 +44,49 @@ export const DropContainer = () => {
       messageNode: (nodeProps: NodeProps) => (
         <MessageNode
           {...nodeProps}
+          nodes={nodes}
           isSelected={nodeProps.id === selectedNode?.id}
         />
       ),
       initialMessageNode: (nodeProps: NodeProps) => (
         <InitialMessageNode
           {...nodeProps}
+          nodes={nodes}
           isSelected={nodeProps.id === selectedNode?.id}
         />
       ),
       responseNode: (nodeProps: NodeProps) => (
         <ResponseNode
           {...nodeProps}
+          nodes={nodes}
           isSelected={nodeProps.id === selectedNode?.id}
         />
       ),
       intentNode: (nodeProps: NodeProps) => (
         <IntentNode
           {...nodeProps}
+          nodes={nodes}
           isSelected={nodeProps.id === selectedNode?.id}
         />
       ),
       actionNode: (nodeProps: NodeProps) => (
         <ActionNode
           {...nodeProps}
+          nodes={nodes}
           isSelected={nodeProps.id === selectedNode?.id}
         />
       ),
       endNode: (nodeProps: NodeProps) => (
         <EndNode
           {...nodeProps}
+          nodes={nodes}
           isSelected={nodeProps.id === selectedNode?.id}
         />
       ),
     }),
-    [selectedNode]
+    [selectedNode, nodes]
   );
+
   const onNodeClick = (event: any, node: any) => {
     setSelectedNode(node);
   };
@@ -129,6 +136,13 @@ export const DropContainer = () => {
     [setNodes]
   );
 
+  const deleteNode = useCallback((nodeId: string) => {
+    setNodes((nds) => nds.filter((node) => node.id !== nodeId));
+    setEdges((eds) =>
+      eds.filter((edge) => edge.source !== nodeId && edge.target !== nodeId)
+    );
+  }, []);
+
   const serializeFlow = () => {
     const serializedData = {
       nodes: nodes.map((node) => ({
@@ -171,7 +185,12 @@ export const DropContainer = () => {
           </ReactFlow>
         </div>
         {selectedNode && (
-          <NodeDetailEditor nodeData={selectedNode} updateNode={updateNode} />
+          <NodeDetailEditor
+            nodeData={selectedNode}
+            updateNode={updateNode}
+            deleteNode={deleteNode}
+            setSelectedNode={setSelectedNode}
+          />
         )}
       </ReactFlowProvider>
     </div>

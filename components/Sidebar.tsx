@@ -23,7 +23,7 @@ export const Sidebar = ({ serializeFlow }: SidebarProps) => {
         Message Node
       </div>
       <div
-        className="dndnode"
+        className="dndnode responseNode"
         onDragStart={(event) => onDragStart(event, "responseNode")}
         draggable
       >
@@ -37,7 +37,7 @@ export const Sidebar = ({ serializeFlow }: SidebarProps) => {
         Intent Node
       </div>
       <div
-        className="dndnode output"
+        className="dndnode actionNode"
         onDragStart={(event) => onDragStart(event, "actionNode")}
         draggable
       >

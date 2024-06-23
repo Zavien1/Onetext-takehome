@@ -11,7 +11,7 @@ export const EndNode = ({ data }: any) => {
   return (
     <>
       <Handle type="target" position={Position.Top} />
-      <div className="rounded-full bg-red-500 text-white p-4">
+      <div className="rounded-full bg-red-500 text-white p-8">
         <p className="">End</p>
       </div>
     </>
