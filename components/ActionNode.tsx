@@ -1,7 +1,10 @@
+import { useNodeContext } from "@/lib/NodesContext";
 import cn from "@/utils/cn";
 import { Handle, Position } from "reactflow";
 
-export const ActionNode = ({ data, isSelected, nodes }: any) => {
+export const ActionNode = ({ data, isSelected }: any) => {
+  const { nodes } = useNodeContext();
+
   return (
     <>
       <Handle type="target" position={Position.Top} />

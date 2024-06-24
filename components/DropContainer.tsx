@@ -25,6 +25,7 @@ import { ResponseNode } from "./ResponseNode";
 import { IntentNode } from "./IntentNode";
 import { EndNode } from "./EndNode";
 import { ActionNode } from "./ActionNode";
+import { NodeProvider } from "@/lib/NodesContext";
 
 // Initial nodes setup for the flow chart
 const initialNodes = [
@@ -53,42 +54,36 @@ export const DropContainer = ({ setActiveNodes }: any) => {
       messageNode: (nodeProps: NodeProps) => (
         <MessageNode
           {...nodeProps}
-          nodes={nodes}
           isSelected={nodeProps.id === selectedNode?.id}
         />
       ),
       initialMessageNode: (nodeProps: NodeProps) => (
         <InitialMessageNode
           {...nodeProps}
-          nodes={nodes}
           isSelected={nodeProps.id === selectedNode?.id}
         />
       ),
       responseNode: (nodeProps: NodeProps) => (
         <ResponseNode
           {...nodeProps}
-          nodes={nodes}
           isSelected={nodeProps.id === selectedNode?.id}
         />
       ),
       intentNode: (nodeProps: NodeProps) => (
         <IntentNode
           {...nodeProps}
-          nodes={nodes}
           isSelected={nodeProps.id === selectedNode?.id}
         />
       ),
       actionNode: (nodeProps: NodeProps) => (
         <ActionNode
           {...nodeProps}
-          nodes={nodes}
           isSelected={nodeProps.id === selectedNode?.id}
         />
       ),
       endNode: (nodeProps: NodeProps) => (
         <EndNode
           {...nodeProps}
-          nodes={nodes}
           isSelected={nodeProps.id === selectedNode?.id}
         />
       ),
@@ -187,21 +182,23 @@ export const DropContainer = ({ setActiveNodes }: any) => {
           className="reactflow-wrapper component gridded-background bg-[#F2F6F8]"
           ref={reactFlowWrapper}
         >
-          <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            onInit={setReactFlowInstance}
-            onDrop={onDrop}
-            onDragOver={onDragOver}
-            onNodeClick={onNodeClick}
-            nodeTypes={nodeTypes}
-            fitView
-          >
-            <Controls />
-          </ReactFlow>
+          <NodeProvider nodes={nodes}>
+            <ReactFlow
+              nodes={nodes}
+              edges={edges}
+              onNodesChange={onNodesChange}
+              onEdgesChange={onEdgesChange}
+              onConnect={onConnect}
+              onInit={setReactFlowInstance}
+              onDrop={onDrop}
+              onDragOver={onDragOver}
+              onNodeClick={onNodeClick}
+              nodeTypes={nodeTypes}
+              fitView
+            >
+              <Controls />
+            </ReactFlow>
+          </NodeProvider>
         </div>
         {selectedNode && (
           <NodeDetailEditor
