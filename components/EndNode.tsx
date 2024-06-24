@@ -12,12 +12,11 @@ export const EndNode = ({ data, nodes, isSelected }: any) => {
 
       // Retrieve nodes from state or context to check their types
       const sourceNode = nodes.find((node: any) => node.id === source);
-      const targetNode = nodes.find((node: any) => node.id === target);
 
       // Example condition: Allow connection only if target is a 'responseNode'
       if (
-        targetNode?.type === "actionNode" ||
-        targetNode?.type === "messageNode"
+        sourceNode?.type === "actionNode" ||
+        sourceNode?.type === "messageNode"
       ) {
         return true;
       } else {
