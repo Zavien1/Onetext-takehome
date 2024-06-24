@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { SaveFlowDialog } from "./SaveFlowDialog";
+import { TestFlowDialog } from "./TestFlowDialog";
 
-export const Navbar = () => {
+export const Navbar = ({ nodes }: any) => {
   return (
     <div className="w-full p-4 flex flex-row items-center justify-between border-b border">
       <div className="flex flex-row items-center">
@@ -13,7 +14,10 @@ export const Navbar = () => {
         />
         <h1 className="font-bold text-[1.5rem]">Flow Builder</h1>
       </div>
-      <SaveFlowDialog />
+      <div className="flex flex-row items-center space-x-2">
+        <TestFlowDialog nodes={nodes} />
+        <SaveFlowDialog />
+      </div>
     </div>
   );
 };

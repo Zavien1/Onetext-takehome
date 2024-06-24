@@ -3,8 +3,6 @@ import { useCallback } from "react";
 import { Connection, Handle, Position } from "reactflow";
 import { useToast } from "./ui/use-toast";
 
-const handleStyle = { left: 10 };
-
 export const IntentNode = ({ data, isSelected, nodes }: any) => {
   const { toast } = useToast();
 
@@ -70,7 +68,7 @@ export const IntentNode = ({ data, isSelected, nodes }: any) => {
       />
       <div
         className={cn(
-          "w-32 h-32 bg-orange-500 text-white flex items-center justify-center transform rotate-45 mt-5 mb-5",
+          "w-32 h-32 bg-orange-300 text-white flex items-center justify-center transform rotate-45 mt-5 mb-5",
           isSelected ? "border-4 border-black" : "border-4 border-orange-500"
         )}
       >

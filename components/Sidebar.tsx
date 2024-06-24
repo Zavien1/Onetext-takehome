@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "./ui/button";
 
 type SidebarProps = {
   serializeFlow: () => void;
@@ -50,13 +51,13 @@ export const Sidebar = ({ serializeFlow }: SidebarProps) => {
       >
         End Node
       </div>
-      <div className="absolute top-[95%] w-full left-0 flex items-center justify-center">
-        <button
+      <div className="absolute top-[93%] w-full left-0 flex items-center justify-center">
+        <Button
           className="p-2 bg-black text-white rounded-lg w-3/4"
           onClick={serializeFlow}
         >
           Export Data
-        </button>
+        </Button>
       </div>
     </aside>
   );

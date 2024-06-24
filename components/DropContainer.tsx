@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useState, useRef, useCallback, useMemo } from "react";
+import React, {
+  useState,
+  useRef,
+  useCallback,
+  useMemo,
+  useEffect,
+} from "react";
 import ReactFlow, {
   ReactFlowProvider,
   addEdge,
@@ -20,25 +26,28 @@ import { IntentNode } from "./IntentNode";
 import { EndNode } from "./EndNode";
 import { ActionNode } from "./ActionNode";
 
+// Initial nodes setup for the flow chart
 const initialNodes = [
   {
-    id: "1",
+    id: "dndnode_0",
     type: "initialMessageNode",
-    data: { label: "initial message node" },
+    data: { label: "" },
     position: { x: 250, y: 5 },
   },
 ];
 
-let id = 0;
+let id = 1;
+// Function to generate unique IDs for new nodes
 const getId = () => `dndnode_${id++}`;
 
-export const DropContainer = () => {
+export const DropContainer = ({ setActiveNodes }: any) => {
   const reactFlowWrapper = useRef(null);
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [reactFlowInstance, setReactFlowInstance] = useState<any>(null);
   const [selectedNode, setSelectedNode] = useState<NodeProps | null>(null);
 
+  // Defining custom node types for the flowchart
   const nodeTypes = useMemo(
     () => ({
       messageNode: (nodeProps: NodeProps) => (
@@ -84,23 +93,26 @@ export const DropContainer = () => {
         />
       ),
     }),
-    [selectedNode, nodes]
+    [selectedNode]
   );
 
   const onNodeClick = (event: any, node: any) => {
     setSelectedNode(node);
   };
 
+  // Function to handle new edge creation between nodes
   const onConnect = useCallback(
     (params: any) => setEdges((eds) => addEdge(params, eds)),
     []
   );
 
+  // Function to handle dragging over the drop area
   const onDragOver = useCallback((event: any) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   }, []);
 
+  // Function to handle node drop on the canvas
   const onDrop = useCallback(
     (event: any) => {
       event.preventDefault();
@@ -119,7 +131,7 @@ export const DropContainer = () => {
         id: getId(),
         type,
         position,
-        data: { label: `${type} node` },
+        data: { label: "" },
       };
 
       setNodes((nds) => nds.concat(newNode));
@@ -127,6 +139,7 @@ export const DropContainer = () => {
     [reactFlowInstance]
   );
 
+  // Function to update node data
   const updateNode = useCallback(
     (id: string, data: any) => {
       setNodes((nds) =>
@@ -143,6 +156,7 @@ export const DropContainer = () => {
     );
   }, []);
 
+  // Function to serialize the current state of the flowchart
   const serializeFlow = () => {
     const serializedData = {
       nodes: nodes.map((node) => ({
@@ -158,6 +172,11 @@ export const DropContainer = () => {
     };
     console.log(JSON.stringify(serializedData));
   };
+
+  useEffect(() => {
+    setActiveNodes(nodes);
+    // console.log(nodes);
+  }, [nodes]);
 
   return (
     <div className="dndflow">

@@ -9,7 +9,7 @@ import {
 export const ActionSelect = () => {
   return (
     <Select>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="">
         <SelectValue placeholder="Select Action" />
       </SelectTrigger>
       <SelectContent>

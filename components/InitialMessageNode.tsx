@@ -41,11 +41,11 @@ export const InitialMessageNode = ({ data, isSelected, nodes }: any) => {
       />
       <div
         className={cn(
-          "rounded-lg bg-blue-500 text-white p-4 min-w-[200px] items-center justify-center flex",
+          "rounded-lg bg-blue-200 text-white p-4 min-w-[200px] items-center justify-center flex",
           isSelected ? "border-4 border-black" : "border-4 border-blue-500"
         )}
       >
-        <p>Initial Message Node</p>
+        <p className="font-medium">Initial Message Node</p>
       </div>
     </>
   );
