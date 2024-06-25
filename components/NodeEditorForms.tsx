@@ -1,6 +1,11 @@
 import { ActionSelect } from "./ActionSelect";
+import { useState } from "react";
 
 export const ResponseNodeForm = ({ nodeId, message, setMessage }: any) => {
+  const updateText = (event: any) => {
+    event.preventDefault();
+    setMessage(event.target.value);
+  };
   return (
     <>
       <div>
@@ -8,9 +13,9 @@ export const ResponseNodeForm = ({ nodeId, message, setMessage }: any) => {
         <p>Response nodes are response messages sent from the user...</p>
       </div>
       <textarea
-        key={`node-${nodeId}`}
+        key={nodeId}
         placeholder="Example: 'Yes' or leave blank if there is not a specific expected response"
-        onChange={(e) => setMessage(e.target.value)}
+        onChange={updateText}
         className="rounded-lg p-2 w-full bg-[#F2F2F2]"
         value={message}
       />
@@ -23,6 +28,10 @@ export const InitialMessageNodeForm = ({
   message,
   setMessage,
 }: any) => {
+  const updateText = (event: any) => {
+    event.preventDefault();
+    setMessage(event.target.value);
+  };
   return (
     <>
       <div>
@@ -30,11 +39,11 @@ export const InitialMessageNodeForm = ({
         <p>The initial message users receive to begin your text flow.</p>
       </div>
       <textarea
-        key={`node-${nodeId}`}
+        key={nodeId}
         placeholder="Enter message here"
-        onChange={(e) => setMessage(e.target.value)}
+        onChange={updateText}
         className="rounded-lg p-2 w-full bg-[#F2F2F2]"
-        defaultValue={message}
+        value={message}
       />
     </>
   );
@@ -52,6 +61,11 @@ export const EndNodeForm = ({}: any) => {
 };
 
 export const IntentNodeForm = ({ nodeId, message, setMessage }: any) => {
+  const updateText = (event: any) => {
+    event.preventDefault();
+    setMessage(event.target.value);
+  };
+
   return (
     <>
       <div>
@@ -64,15 +78,20 @@ export const IntentNodeForm = ({ nodeId, message, setMessage }: any) => {
       <textarea
         key={`node-${nodeId}`}
         placeholder="Example: User wants to know the weather"
-        onChange={(e) => setMessage(e.target.value)}
+        onChange={updateText}
         className="rounded-lg p-2 w-full bg-[#F2F2F2]"
-        defaultValue={message}
+        value={message}
       />
     </>
   );
 };
 
 export const MessageNodeForm = ({ nodeId, message, setMessage }: any) => {
+  const updateText = (event: any) => {
+    event.preventDefault();
+    setMessage(event.target.value);
+  };
+
   return (
     <>
       <div>
@@ -80,11 +99,11 @@ export const MessageNodeForm = ({ nodeId, message, setMessage }: any) => {
         <p>Basic Message nodes are used to deliver a response to the user.</p>
       </div>
       <textarea
-        key={`node-${nodeId}`}
+        key={nodeId}
         placeholder="Enter message here"
-        onChange={(e) => setMessage(e.target.value)}
+        onChange={updateText}
         className="rounded-lg p-2 w-full bg-[#F2F2F2]"
-        defaultValue={message}
+        value={message}
       />
     </>
   );

@@ -1,38 +1,43 @@
 import React, { useEffect, useState, useRef } from "react";
 import { AvatarIcon } from "./AvatarIcon";
 import cn from "@/utils/cn";
-import { Node } from "reactflow";
 
 export const TestingChat = ({ nodes }: any) => {
   const [messages, setMessages] = useState<any>([]);
   const [inputText, setInputText] = useState("");
+  const [currentNodeIndex, setCurrentNodeIndex] = useState(0);
   const initialized = useRef(false);
 
-  console.log(nodes);
-
   useEffect(() => {
-    // Only run this effect once
     if (!initialized.current) {
-      const initialMessages = nodes.filter(
-        (node: Node) => node.type === "initialMessageNode"
-      );
-      initialMessages.forEach((node: Node) => {
+      processNode(0);
+      initialized.current = true;
+    }
+  }, [nodes]);
+
+  const processNode = (index: number) => {
+    if (index < nodes.length) {
+      const node = nodes[index];
+      if (node.type === "initialMessageNode" || node.type === "messageNode") {
         setTimeout(() => {
           setMessages((msgs: any) => [
             ...msgs,
             { text: node.data.label, sender: "receiver" },
           ]);
+          processNode(index + 1); // Automatically proceed to the next node
         }, node.data.delay || 1000);
-      });
-
-      initialized.current = true; // Mark as initialized to prevent rerun
+      } else if (node.type === "responseNode") {
+        setCurrentNodeIndex(index);
+      }
     }
-  }, [nodes]); // Depend on stable `nodes`
+  };
 
   const handleSend = () => {
     if (inputText.trim()) {
       setMessages([...messages, { text: inputText, sender: "sender" }]);
       setInputText("");
+      // After sending a message, process the next node
+      processNode(currentNodeIndex + 1);
     }
   };
 
