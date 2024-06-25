@@ -1,29 +1,31 @@
+import cn from "@/utils/cn";
 import { useCallback } from "react";
-
 import { Connection, Handle, Position } from "reactflow";
 import { useToast } from "./ui/use-toast";
-import cn from "@/utils/cn";
+import { useNodeContext } from "@/lib/NodesContext";
 
-export const EndNode = ({ data, nodes, isSelected }: any) => {
+export const EndNode = ({ data, isSelected }: any) => {
+  const { nodes } = useNodeContext();
   const { toast } = useToast();
+
   const isValidConnection = useCallback(
     (connection: Connection) => {
-      const { source, target, sourceHandle, targetHandle } = connection;
+      const { source } = connection;
 
-      // Retrieve nodes from state or context to check their types
       const sourceNode = nodes.find((node: any) => node.id === source);
 
-      // Example condition: Allow connection only if target is a 'responseNode'
       if (
         sourceNode?.type === "actionNode" ||
-        sourceNode?.type === "messageNode"
+        sourceNode?.type === "messageNode" ||
+        sourceNode?.type === "responseNode"
       ) {
         return true;
       } else {
         toast({
           variant: "destructive",
           title: "Invalid Connection",
-          description: "This node can only connect to a message or action node",
+          description:
+            "This node can only connect to a message, action, or response node",
         });
         return false;
       }
